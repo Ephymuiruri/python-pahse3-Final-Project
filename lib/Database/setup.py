@@ -4,6 +4,7 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_name TEXT NOT NULL,
+            Amount DECIMAL(19,4) NOT NULL,
             date_created DATE NOT NULL
         );
     """)
@@ -27,6 +28,16 @@ def create_tables():
             FOREIGN KEY (recipient_id) REFERENCES users(user_id)
         );
     """)
+    CURSOR.execute("""
+        CREATE TABLE IF NOT EXISTS loans (
+            loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            loan_amount DECIMAL(19,4) NOT NULL,
+            loan_date DATE NOT NULL,
+            user_id INTEGER NOT NULL,
+            date_due DATE NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(user_id)
+        );
+    """)
     CONN.commit()
 
 def drop_tables():
@@ -38,5 +49,8 @@ def drop_tables():
     """)
     CURSOR.execute("""
         DROP TABLE IF EXISTS users;
+    """)
+    CURSOR.execute("""
+        DROP TABLE IF EXISTS loans;
     """)
     CONN.commit()
