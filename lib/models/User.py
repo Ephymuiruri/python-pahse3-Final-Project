@@ -1,10 +1,10 @@
 import datetime
 from lib.models.__init__ import CONN,CURSOR
-from lib.models import Deposit,Loans,Payment
 class User:
     def __init__(self,name):
         self._name = name
         self.date =datetime.datetime.now()
+        self.amount = 0.00
         self.id = self.add_user()
         print(self)
     @property
@@ -25,11 +25,28 @@ class User:
     def add_user(self):
         """Create a new user in database"""
         sql = """
-               INSERT INTO  users (user_name,date_created)
-               VALUES(?,?);
+               INSERT INTO  users (user_name,Amount,date_created)
+               VALUES(?,?,?);
            """
-        CURSOR.execute(sql,(self._name,self.date))
+        CURSOR.execute(sql,(self._name,self.amount,self.date))
         CONN.commit()
         user_id = CURSOR.lastrowid
         return user_id
+    @classmethod
+    def update_user(cls,user_id,amount):
+        """Update a user in the database"""
+        sql1 ="""SELECT amount FROM users WHERE user_id = ?"""
+        CURSOR.execute(sql1,(user_id,))
+        result = CURSOR.fetchone()
+        amount = result[0] + amount
+        amount = round(amount,4)
+        sql = """
+               UPDATE users
+               SET Amount = ?
+               WHERE user_id =?;
+           """
+        CURSOR.execute(sql,(amount,user_id))
+        CONN.commit()
+        return amount
+
     
