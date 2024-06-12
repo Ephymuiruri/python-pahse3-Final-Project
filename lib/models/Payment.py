@@ -1,6 +1,7 @@
+#lib/Payment.py
 import datetime
-from lib.models.__init__ import CONN,CURSOR
-from lib.models.User import User
+from .database_config import CONN,CURSOR
+from .User import User
 class Payment:
     def __init__(self,amount,user_id,recipient_id):
         if(user_id == recipient_id):

@@ -1,5 +1,7 @@
+#lib/User.py
+
 import datetime
-from lib.models.__init__ import CONN,CURSOR
+from .database_config import CONN,CURSOR
 class User:
     def __init__(self,name):
         self._name = name

@@ -1,6 +1,7 @@
+#lib/Deposit.py
 import datetime
-from lib.models.__init__ import CONN,CURSOR
-from lib.models.User import User
+from .database_config import CONN,CURSOR
+from .User import User
 class Deposit:
     all=[]
     def __init__(self,amount,user_id):

@@ -1,6 +1,7 @@
-from datetime import datetime,date
-from lib.models.__init__ import CONN,CURSOR
-from lib.models.User import User
+#lib/Loans.py
+from datetime import datetime
+from .database_config import CONN,CURSOR
+from .User import User
 class Loan:
 
     def __init__(self,amount,userid,date_due):

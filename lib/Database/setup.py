@@ -1,4 +1,4 @@
-from lib.models.__init__ import CONN,CURSOR
+from models.database_config import CONN,CURSOR
 def create_tables():
     CURSOR.execute("""
         CREATE TABLE IF NOT EXISTS users (
