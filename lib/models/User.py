@@ -48,5 +48,34 @@ class User:
         CURSOR.execute(sql,(amount,user_id))
         CONN.commit()
         return amount
+    @classmethod
+    def delete_user(self, user_id):
+        """Delete a user from the database"""
+        sql = """
+               DELETE FROM users
+               WHERE user_id =?;
+           """
+        CURSOR.execute(sql,(user_id,))
+        CONN.commit()
+        print(f"User {user_id} has been deleted.")
+    @classmethod
+    def get_all_users(self):
+        """Get all users from the database"""
+        sql = """
+               SELECT user_name FROM users;
+           """
+        CURSOR.execute(sql)
+        result = CURSOR.fetchall()
+        return ([user[0] for user in result])
+    @classmethod
+    def find_user_by_id(cls, user_id):
+        """Find a user by id"""
+        sql = """
+               SELECT user_name FROM users
+               WHERE user_id =?;
+           """
+        CURSOR.execute(sql,(user_id,))
+        result = CURSOR.fetchone()
+        return f"User's name is: {result[0]}"
 
     

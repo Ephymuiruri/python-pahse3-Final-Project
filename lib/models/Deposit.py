@@ -42,6 +42,43 @@ class Deposit:
         amount = self.amount
         result = User.update_user(id,amount)
         print (f"New Bank Total after deposit is:{result}")
+
+    @classmethod
+    def delete_deposit(cls, deposit_id):
+        """Delete deposit from bank"""
+        sql1 =""" SELECT deposit_amount,user_id FROM deposits WHERE deposit_id = ?"""
+        CURSOR.execute(sql1,(deposit_id,))
+        result = CURSOR.fetchone()
+        amount = result[0]
+        user_id = result[1]
+        amount = 0-amount
+        result = User.update_user(user_id,amount)
+
+        sql="""
+              DELETE FROM deposits WHERE deposit_id =?;
+           """
+        CURSOR.execute(sql,(deposit_id,))
+        CONN.commit()
+        print(f"Deposit {deposit_id} has been deleted.New Bank Total after deleting deposit is:{result}")
+    @classmethod
+    def get_all_deposits(cls):
+        """Get all deposits from the database"""
+        sql = """
+               SELECT * FROM deposits;
+           """
+        CURSOR.execute(sql)
+        result = CURSOR.fetchall()
+        for deposit in result:
+            print(f"Deposit of {deposit[1]} made on {deposit[2]} by user with id: {deposit[3]}")
+
+    @classmethod
+    def find_deposit_by_id(cls, deposit_id):
+        """Finds a deposit by id"""
+        sql=""" SELECT * FROM deposits where deposit_id =?"""
+        CURSOR.execute(sql,(deposit_id,))
+        result = CURSOR.fetchone()
+        return f"Deposit id: {result[0]} was made on {result[2]} by user with id: {result[3]} for an amount of {result[1]}."
+        
     
 
         
