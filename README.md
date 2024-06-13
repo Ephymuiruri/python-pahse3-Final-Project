@@ -45,6 +45,8 @@ As a result, this project intends to create a bank system that will streamline t
 - **User Registration**: Users can create a new bank account.
 - **Date Recording**: The system records the date the account was created.
 - **Customer ID Assignment**: Each customer is assigned a unique identifier used in all subsequent bank operations.
+## screenshot of user section
+![user.png](images/user.png)
 
 ### MVP 2: Deposits
 
@@ -53,7 +55,7 @@ As a result, this project intends to create a bank system that will streamline t
 - **Update Account Balance**: Deposits increase the account balance accordingly.
 - **Transaction Logging**: Each deposit transaction is logged with details such as amount and date.
  ## screenshot of deposit section
- ![image](images/whole_section.png)
+ ![image](images/deposit.png)
 
 
 ### MVP 3: Loans
@@ -65,7 +67,7 @@ As a result, this project intends to create a bank system that will streamline t
 - **Update Account Balance**: Approved loans increase the customer's account balance.
 - **Loan Repayment Tracking**: Basic tracking of repayments can be included.
 ## screenshot of Loan section
-![output](images/Screenshot from 2024-06-13 15-27-49.png)
+![output](images/loan.png)
 
 ### MVP 4: Payments
 
@@ -73,8 +75,8 @@ As a result, this project intends to create a bank system that will streamline t
 - **Make Payments**: Users can make payments from one customer account to another within the bank.
 - **Transaction Processing**: The system processes payments and updates account balances accordingly.
 - **Transaction Logging**: Each payment transaction is logged with details such as amount, date, sender, and recipient.
-## screenshot of Loan section
-![output](images/Screenshot from 2024-06-13 15-27-43.png)
+## screenshot of payment section
+![output](images/payment.png)
 
 ## Installation
 
@@ -92,7 +94,7 @@ As a result, this project intends to create a bank system that will streamline t
     ```
 2. to select a comand just type in then click enter
 you will see:
-![output](images/Screenshot from 2024-06-13 15-27-43.png)
+![output](images/command_area.png)
 just type in the command then click enter
 ```sh
      // for example to exit you will enter 0
@@ -101,7 +103,7 @@ just type in the command then click enter
 
 ## screenshots
 on launching you will see:
-  ![output](images/Screenshot from 2024-06-13 15-26-57.png)
+  ![output](images/whole_section.png)
 
 ## Database Schema
 
