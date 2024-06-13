@@ -38,6 +38,13 @@ def create_tables():
             FOREIGN KEY (user_id) REFERENCES users(user_id)
         );
     """)
+    CURSOR.execute("""
+        CREATE TABLE IF NOT EXISTS managers (
+            manager_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            manager_name TEXT NOT NULL,
+            date_created DATE NOT NULL
+        );
+    """)
     CONN.commit()
 
 def drop_tables():
@@ -52,5 +59,8 @@ def drop_tables():
     """)
     CURSOR.execute("""
         DROP TABLE IF EXISTS loans;
+    """)
+    CURSOR.execute("""
+        DROP TABLE IF EXISTS managers;
     """)
     CONN.commit()

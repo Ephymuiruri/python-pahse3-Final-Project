@@ -35,21 +35,23 @@ class User:
         user_id = CURSOR.lastrowid
         return user_id
     @classmethod
-    def update_user(cls,user_id,amount):
+    def update_user(cls,user_id,additionalAmount):
         """Update a user in the database"""
-        sql1 ="""SELECT amount FROM users WHERE user_id = ?"""
+        sql1 ="""SELECT Amount FROM users WHERE user_id = ?"""
         CURSOR.execute(sql1,(user_id,))
         result = CURSOR.fetchone()
-        amount = result[0] + amount
-        amount = round(amount,4)
-        sql = """
+        if result is  None:
+            print(f"User {user_id} does not exist.")
+        currentAmount = result[0]
+        newAmount =round(currentAmount +additionalAmount,4)
+        sql2 = """
                UPDATE users
                SET Amount = ?
-               WHERE user_id =?;
+               WHERE user_id = ?;
            """
-        CURSOR.execute(sql,(amount,user_id))
+        CURSOR.execute(sql2,(newAmount,user_id))
         CONN.commit()
-        return amount
+        return newAmount
     @classmethod
     def delete_user(self, user_id):
         """Delete a user from the database"""

@@ -12,11 +12,14 @@ class Loan:
         self.date_due = date_due
         self.date = datetime.now()
         self.id = self.add_loan()
+        print(self)
         self.add_loan_user()
     @classmethod
     def create_loan(cls,amount,userid,date_due):
         """Create a new loan instance"""
         return cls(amount,userid,date_due)
+    def __repr__(self):
+        return f"You loaned {self.amount} to user with id: {self.user_id} on {self.date_due} his loan id is {self.id}"
     def add_loan(self):
         """add a loan to the account in the database"""
         sql ="""INSERT INTO loans (loan_amount,loan_date,user_id,date_due)
@@ -57,8 +60,7 @@ class Loan:
            """
         CURSOR.execute(sql)
         result = CURSOR.fetchall()
-        for loan in result:
-            print(f"Loan of {loan[1]} made on {loan[2]} by user with id: {loan[3]}")
+        return result
     
     @classmethod
     def find_loan_by_id(cls, loan_id):
@@ -67,6 +69,13 @@ class Loan:
         CURSOR.execute(sql,(loan_id,))
         result = CURSOR.fetchone()
         return f"Loan id: {result[0]} was made on {result[2]} by user with id: {result[3]} for an amount of {result[1]}."
+    @classmethod
+    def find_user_loans(cls, user_id):
+        """Finds a loan by id"""
+        sql=""" SELECT * FROM loans where user_id =?"""
+        CURSOR.execute(sql,(user_id,))
+        result = CURSOR.fetchall()
+        return result
     
     
 

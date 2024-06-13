@@ -14,7 +14,6 @@ def main():
     payment1 = Payment.create_payment(500,1,2)
     payment2 = Payment.create_payment(500,2,1)
     loan1=Loan.create_loan(10000,1,12-6-2024)
-    values=User1.get_all_users()
 
 
 if __name__ == '__main__':

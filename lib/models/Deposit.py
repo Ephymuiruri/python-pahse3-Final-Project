@@ -25,7 +25,7 @@ class Deposit:
     def __repr__(self):
         return f"You deposited {self._amount} on {self.date}."
     @classmethod
-    def create_deposit(cls,amount,user_id):
+    def create_deposit(cls,user_id,amount):
         """Create a new deposit instance"""
         return cls(amount,user_id)
     def add_deposit(self):
@@ -79,6 +79,13 @@ class Deposit:
         CURSOR.execute(sql,(deposit_id,))
         result = CURSOR.fetchone()
         return f"Deposit id: {result[0]} was made on {result[2]} by user with id: {result[3]} for an amount of {result[1]}."
+    @classmethod
+    def find_user_deposits(cls, user_id):
+        """Find deposits for a specified user"""
+        sql=""" SELECT * FROM deposits where user_id =?"""
+        CURSOR.execute(sql,(user_id,))
+        result = CURSOR.fetchall()
+        return result
         
     
 

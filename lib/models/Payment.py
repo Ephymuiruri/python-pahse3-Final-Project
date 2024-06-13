@@ -25,7 +25,6 @@ class Payment:
         if not isinstance(amount,int):
             raise TypeError("Amount must be an integer.")
         self._amount = amount
-
     @classmethod
     def create_payment(cls,amount,user_id,recipient_id):
         """Create a new payment instance"""
@@ -65,8 +64,8 @@ class Payment:
            """
         CURSOR.execute(sql,(payment_id,))
         CONN.commit()
-        result2 = User.update_user(user_id,amount)
-        result3 = User.update_user(recipient_id,0-amount)
+        User.update_user(user_id,amount)
+        User.update_user(recipient_id,0-amount)
         print(f"Payment of id: {payment_id} has been deleted restoring Kshs.{amount} to your account")
     @classmethod
     def get_all_payments(cls):
@@ -76,9 +75,7 @@ class Payment:
            """
         CURSOR.execute(sql)
         results = CURSOR.fetchall()
-        for instance in results:
-            print(f"payment of {instance[1]} made out to user with id: {instance[4]} by user with id: {instance[3]}")
-
+        return results
     @classmethod
     def find_payment_by_id(cls, payment_id):
         """Finds a payment by id"""
@@ -86,4 +83,11 @@ class Payment:
         CURSOR.execute(sql,(payment_id,))
         result = CURSOR.fetchone()
         return f"Payment id: {result[0]} was made on {result[1]} by user with id: {result[2]} to user with id: {result[3]} for an amount of {result[4]}."
+    @classmethod
+    def find_payments_user(cls, user_id):
+        """find payments made by user with id"""
+        sql=""" SELECT * FROM payments where user_id =?"""
+        CURSOR.execute(sql,(user_id,))
+        result = CURSOR.fetchall()
+        return result
     
