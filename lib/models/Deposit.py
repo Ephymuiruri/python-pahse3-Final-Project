@@ -12,7 +12,6 @@ class Deposit:
         self.date = datetime.datetime.now()
         self.id = self.add_deposit()
         self.all.append(self)
-        print(self)
         self.add_deposit_user()
     @property
     def amount(self):
@@ -60,7 +59,7 @@ class Deposit:
            """
         CURSOR.execute(sql,(deposit_id,))
         CONN.commit()
-        print(f"Deposit {deposit_id} has been deleted.New Bank Total after deleting deposit is:{result}")
+        return f"Deposit {deposit_id} has been deleted.New Bank Total after deleting deposit is:{result}"
     @classmethod
     def get_all_deposits(cls):
         """Get all deposits from the database"""
@@ -69,8 +68,7 @@ class Deposit:
            """
         CURSOR.execute(sql)
         result = CURSOR.fetchall()
-        for deposit in result:
-            print(f"Deposit of {deposit[1]} made on {deposit[2]} by user with id: {deposit[3]}")
+        return [f"Deposit of {deposit[1]} made on {deposit[2]} by user with id: {deposit[3]}" for deposit in result]
 
     @classmethod
     def find_deposit_by_id(cls, deposit_id):

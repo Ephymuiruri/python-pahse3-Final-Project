@@ -24,14 +24,15 @@ class Manager:
     def add_manager(self):
         """Add a new manager instance"""
         sql="""
-            INSERT INTO managers (manager_name,manager_date) 
+            INSERT INTO managers (manager_name,date_created) 
             VALUES(?,?)
             """
         CURSOR.execute(sql,(self._name,self.date))
         CONN.commit()
         manager_id = CURSOR.lastrowid
         return manager_id
-    def delete_manager(self, manager_id):
+    @classmethod
+    def delete_manager(cls, manager_id):
         """Delete manager from the bank"""
         sql = """
                DELETE FROM managers
@@ -39,7 +40,7 @@ class Manager:
            """
         CURSOR.execute(sql,(manager_id,))
         CONN.commit()
-        print(f"Manager with id: {manager_id} has been deleted.")
+        return f"Manager with id: {manager_id} has been deleted."
     @classmethod
     def get_all_managers(cls):
         """Get all managers from the database"""
@@ -55,4 +56,4 @@ class Manager:
         sql=""" SELECT * FROM managers where manager_id =?"""
         CURSOR.execute(sql,(manager_id,))
         result = CURSOR.fetchone()
-        return f"Manager id: {result[0]} was created on {result[1]} by user with id: {result[2]}."
+        return f"Manager {result[1]} was created on {result[0]}  with id: {result[2]}."

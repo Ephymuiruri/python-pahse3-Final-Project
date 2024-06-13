@@ -12,12 +12,11 @@ class Loan:
         self.date_due = date_due
         self.date = datetime.now()
         self.id = self.add_loan()
-        print(self)
         self.add_loan_user()
     @classmethod
-    def create_loan(cls,amount,userid,date_due):
+    def create_loan(cls,amount,user_id,date_due):
         """Create a new loan instance"""
-        return cls(amount,userid,date_due)
+        return cls(amount,user_id,date_due)
     def __repr__(self):
         return f"You loaned {self.amount} to user with id: {self.user_id} on {self.date_due} his loan id is {self.id}"
     def add_loan(self):

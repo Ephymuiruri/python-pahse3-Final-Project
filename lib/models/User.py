@@ -8,7 +8,6 @@ class User:
         self.date =datetime.datetime.now()
         self.amount = 0.00
         self.id = self.add_user()
-        print(self)
     @property
     def name(self):
         return self._name
@@ -40,8 +39,9 @@ class User:
         sql1 ="""SELECT Amount FROM users WHERE user_id = ?"""
         CURSOR.execute(sql1,(user_id,))
         result = CURSOR.fetchone()
-        if result is  None:
+        if result is None:
             print(f"User {user_id} does not exist.")
+            return None
         currentAmount = result[0]
         newAmount =round(currentAmount +additionalAmount,4)
         sql2 = """
@@ -61,7 +61,7 @@ class User:
            """
         CURSOR.execute(sql,(user_id,))
         CONN.commit()
-        print(f"User {user_id} has been deleted.")
+        return f"User {user_id} has been deleted."
     @classmethod
     def get_all_users(self):
         """Get all users from the database"""
@@ -70,7 +70,7 @@ class User:
            """
         CURSOR.execute(sql)
         result = CURSOR.fetchall()
-        return ([user[0] for user in result])
+        return [user[0] for user in result]
     @classmethod
     def find_user_by_id(cls, user_id):
         """Find a user by id"""
@@ -81,5 +81,9 @@ class User:
         CURSOR.execute(sql,(user_id,))
         result = CURSOR.fetchone()
         return f"User's name is: {result[0]}"
+    
+    def translate_name(self):
+        translation_table = str.maketrans("aeiou", "12345")
+        return self.name.translate(translation_table)
 
     

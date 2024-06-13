@@ -25,8 +25,11 @@ class Payment:
         if not isinstance(amount,int):
             raise TypeError("Amount must be an integer.")
         self._amount = amount
+    
+    def __repr__(self):
+        return f"A payment of {self._amount} was made on {self.date} by user with id: {self.user_id} to user with id: {self.recipient_id}."
     @classmethod
-    def create_payment(cls,amount,user_id,recipient_id):
+    def create_payment(cls,user_id,recipient_id,amount):
         """Create a new payment instance"""
         return cls(amount,user_id,recipient_id)
     def add_payment(self):
@@ -45,7 +48,7 @@ class Payment:
         amount1 = 0-self.amount
         result = User.update_user(id,amount1)
         result2 = User.update_user(self.recipient_id,self.amount)
-        print (f"New Bank Total is:{result} after making a payment of {self.amount} to user with id:{self.recipient_id}")
+        return f"New Bank Total is:{result} after making a payment of {self.amount} to user with id:{self.recipient_id}"
     
     @classmethod
     def delete_payment(cls, payment_id):
@@ -66,7 +69,7 @@ class Payment:
         CONN.commit()
         User.update_user(user_id,amount)
         User.update_user(recipient_id,0-amount)
-        print(f"Payment of id: {payment_id} has been deleted restoring Kshs.{amount} to your account")
+        return f"Payment of id: {payment_id} has been deleted restoring Kshs.{amount} to your account"
     @classmethod
     def get_all_payments(cls):
         """Returns all payments payments made"""
