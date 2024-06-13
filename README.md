@@ -53,7 +53,7 @@ As a result, this project intends to create a bank system that will streamline t
 - **Update Account Balance**: Deposits increase the account balance accordingly.
 - **Transaction Logging**: Each deposit transaction is logged with details such as amount and date.
  ## screenshot of deposit section
- ![output](images/Screenshot from 2024-06-13 15-27-35.png)
+ ![image](images/whole_section.png)
 
 
 ### MVP 3: Loans
